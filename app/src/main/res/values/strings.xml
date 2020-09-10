@@ -3,6 +3,9 @@
     <string name="title_main">Инфраструктура ПриватБанка. Банкоматы</string>
     <string name="city_hint">Введите город</string>
     <string name="search">Поиск</string>
+    <string name="place_atm">Место:</string>
+    <string name="address_atm">Адрес:</string>
+    <string name="work_time_atm">Время работы:</string>
 
     <string-array name="cities">
         <item>Винница</item>
@@ -23,6 +26,7 @@
         <item>Сумы</item>
         <item>Тернополь</item>
         <item>Ужгород</item>
+        <item>Шостка</item>
         <item>Харьков</item>
         <item>Херсон</item>
         <item>Хмельницкий</item>
