@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.retroift2application.MyApplication;
 import com.example.retroift2application.R;
 import com.example.retroift2application.adapter.Adapter;
 import com.example.retroift2application.api.PrivatbankAtmApi;
-import com.example.retroift2application.api.PrivatbankAtmClient;
 import com.example.retroift2application.pojo.AtmData;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MAIN_ACTIVITY_TAG";
 
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private PrivatbankAtmApi mPrivatbankAtmApi;
+
     @BindView(R.id.ac_city)
     AutoCompleteTextView mAutoCompleteTextView;
 
@@ -40,9 +45,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
-    PrivatbankAtmApi mPrivatbankAtmApi;
-
+    @Inject
+    Retrofit mRetrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 getResources().getStringArray(R.array.cities));
         mAutoCompleteTextView.setAdapter(arrayAdapter);
 
+        //Dagger init
+        MyApplication.getAppComponent().inject(this);
+
         //Retrofit init
-        Retrofit retrofit = PrivatbankAtmClient.getClient();
-        mPrivatbankAtmApi = retrofit.create(PrivatbankAtmApi.class);
+        mPrivatbankAtmApi = mRetrofit.create(PrivatbankAtmApi.class);
 
         //RecyclerView init
         mRecyclerView.setHasFixedSize(true);
